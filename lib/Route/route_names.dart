@@ -19,6 +19,7 @@ class RouteNames {
   //splash
   static const String splashScreen = 'splash_screen';
   static const String detailSplashScreen = 'detail_splash_screen';
+  static const String appOnScreen = 'app_on_screen';
 
   // others
   static const String newsScreen = 'news_screen';

@@ -23,7 +23,7 @@ class SplashServices {
     }
     // Already logged in
     else {
-      Navigator.pushReplacementNamed(context, RouteNames.todoScreen);
+      Navigator.pushReplacementNamed(context, RouteNames.progressScreen);
     }
   }
 }

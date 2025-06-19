@@ -11,6 +11,7 @@ import 'package:maple_byte/Screens/Home/progress_screen.dart';
 import 'package:maple_byte/Screens/Home/todo_screen.dart';
 import 'package:maple_byte/Screens/Messages/chat_screen.dart';
 import 'package:maple_byte/Screens/Messages/users_screen.dart';
+import 'package:maple_byte/Screens/Splash/app_on_screen.dart';
 import 'package:maple_byte/Screens/Splash/detailed_splash.dart';
 import 'package:maple_byte/Screens/Splash/splash_screen.dart';
 import 'package:maple_byte/Screens/news_screen.dart';
@@ -55,6 +56,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case RouteNames.detailSplashScreen:
         return MaterialPageRoute(builder: (context) => const DetailedSplash());
+      case RouteNames.appOnScreen:
+        return MaterialPageRoute(builder: (context) => const AppOnScreen());
 
       // others
       case RouteNames.newsScreen:
