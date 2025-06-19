@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:maple_byte/Route/route_names.dart';
 import 'package:maple_byte/Services/splash_services.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
 import 'package:maple_byte/main.dart';

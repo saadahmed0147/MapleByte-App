@@ -6,7 +6,6 @@ import 'package:maple_byte/Component/round_textfield.dart';
 import 'package:maple_byte/Route/route_names.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
 import 'package:maple_byte/Utils/utils.dart';
-import 'package:maple_byte/main.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -206,6 +205,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: RoundButton(
                       loading: _loading,
                       title: 'Sign Up',
+                      fontSize: 15,
                       onPress: () {
                         if (_formKey.currentState!.validate()) {
                           onSignUp();

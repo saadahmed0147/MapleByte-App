@@ -32,7 +32,11 @@ class _RoundButtonState extends State<RoundButton> {
   @override
   Widget build(BuildContext context) {
     return widget.loading
-        ? const CircularProgressIndicator(color: AppColors.darkBlueColor)
+        ? Center(
+            child: const CircularProgressIndicator(
+              color: AppColors.darkBlueColor,
+            ),
+          )
         : Container(
             width: double.infinity,
             decoration: BoxDecoration(

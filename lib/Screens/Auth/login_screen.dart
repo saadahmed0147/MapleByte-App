@@ -133,8 +133,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           overlayColor: Colors.transparent,
                         ),
                         onPressed: () {
-                          print("a");
-                          Navigator.pushNamed(context, RouteNames.splashScreen);
+                          Navigator.pushNamed(
+                            context,
+                            RouteNames.forgetpassScreen,
+                          );
                         },
                         child: Text(
                           "Forgot Password?",
