@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:maple_byte/Component/round_button.dart';
 import 'package:maple_byte/Component/round_textfield.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
-import 'package:maple_byte/Utils/utils.dart'; // Make sure you have a flushbar/snackbar helper here
+import 'package:maple_byte/Utils/utils.dart';
 
 class ForgetPassScreen extends StatefulWidget {
   const ForgetPassScreen({super.key});
@@ -40,6 +40,9 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
           context,
           success: true,
         );
+        // ✅ Clear email field and dismiss keyboard
+        emailController.clear();
+        FocusScope.of(context).unfocus();
       }
     } catch (e) {
       print(e);

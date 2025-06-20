@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maple_byte/Route/route_names.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
+import 'package:maple_byte/Component/curved_appbar.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -39,18 +40,6 @@ class _ProgressScreenState extends State<ProgressScreen> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.lightBlueColor,
-        actions: [
-          IconButton(
-            onPressed: () {
-              _confirmLogout();
-            },
-            icon: Icon(Icons.exit_to_app, color: AppColors.whiteColor),
-          ),
-        ],
-      ),
-    );
+    return Scaffold(body: Column(children: [CurvedAppBar()]));
   }
 }

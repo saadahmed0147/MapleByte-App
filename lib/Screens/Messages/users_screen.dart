@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maple_byte/Component/curved_appbar.dart';
 
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});
@@ -10,6 +11,6 @@ class UsersScreen extends StatefulWidget {
 class _UsersScreenState extends State<UsersScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(body: Column(children: [CurvedAppBar()]));
   }
 }
