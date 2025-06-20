@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:maple_byte/Utils/app_colors.dart';
 
 class Utils {
   static void flushBarErrorMessage(
@@ -17,7 +18,7 @@ class Utils {
         success ? Icons.check_circle : Icons.error,
         color: Colors.white,
       ),
-      backgroundColor: success ? Colors.green : Colors.red,
+      backgroundColor: AppColors.darkBlueColor,
       flushbarPosition: FlushbarPosition.BOTTOM,
     ).show(context);
   }
