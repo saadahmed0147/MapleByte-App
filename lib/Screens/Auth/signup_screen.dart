@@ -27,8 +27,11 @@ class _SignupScreenState extends State<SignupScreen> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final DatabaseReference _dbRef = FirebaseDatabase.instance.ref();
 
+  FocusNode nameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passFocusNode = FocusNode();
+  FocusNode confirmPassFocusNode = FocusNode();
+  FocusNode buttonFocusNode = FocusNode();
 
   void onSignUp() async {
     if (passwordController.text != confirmPasswordController.text) {
@@ -136,9 +139,17 @@ class _SignupScreenState extends State<SignupScreen> {
                           label: 'Name',
                           hint: 'Full Name',
                           inputType: TextInputType.name,
+                          focusNode: nameFocusNode,
                           prefixIcon: Icons.person,
                           textEditingController: nameController,
                           validatorValue: 'Please Enter Name',
+                          onFieldSubmitted: (_) {
+                            Utils.fieldFocusNode(
+                              context,
+                              nameFocusNode,
+                              emailFocusNode,
+                            );
+                          },
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
@@ -187,6 +198,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           isPasswordField: true,
                           validatorValue: 'Please Enter Password',
                           focusNode: passFocusNode,
+                          onFieldSubmitted: (_) {
+                            Utils.fieldFocusNode(
+                              context,
+                              passFocusNode,
+                              confirmPassFocusNode,
+                            );
+                          },
                         ),
                         RoundTextField(
                           label: 'Confirm Password',
@@ -196,6 +214,14 @@ class _SignupScreenState extends State<SignupScreen> {
                           textEditingController: confirmPasswordController,
                           isPasswordField: true,
                           validatorValue: 'Please Confirm Password',
+                          focusNode: confirmPassFocusNode,
+                          onFieldSubmitted: (_) {
+                            Utils.fieldFocusNode(
+                              context,
+                              confirmPassFocusNode,
+                              buttonFocusNode,
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -203,6 +229,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 50, bottom: 10),
                     child: RoundButton(
+                      focusNode: buttonFocusNode,
                       loading: _loading,
                       title: 'Sign Up',
                       fontSize: 15,
