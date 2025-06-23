@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maple_byte/Component/Appbar/curved_appbar.dart';
+import 'package:maple_byte/Utils/app_colors.dart';
 
 class FinishedScreen extends StatefulWidget {
   const FinishedScreen({super.key});
@@ -11,6 +12,9 @@ class FinishedScreen extends StatefulWidget {
 class _FinishedScreenState extends State<FinishedScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Column(children: [CurvedAppBar()]));
+    return Scaffold(
+      backgroundColor: AppColors.whiteColor,
+      body: Column(children: [CurvedAppBar()]),
+    );
   }
 }

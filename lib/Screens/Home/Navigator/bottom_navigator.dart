@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:maple_byte/Screens/Home/progress_screen.dart';
+import 'package:maple_byte/Screens/Home/Navigator/top_navigator.dart';
 import 'package:maple_byte/Screens/Messages/users_screen.dart';
 import 'package:maple_byte/Screens/news_screen.dart';
 import 'package:maple_byte/Screens/quotes_screen.dart';
@@ -44,7 +44,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
     // ✅ Build screens list after getting user ID
     screens = [
-      ProgressScreen(),
+      TopNavigator(),
       ServicesScreen(),
       UsersScreen(currentUserId: currentUserId),
       NewsScreen(),

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:maple_byte/Component/Appbar/curved_appbar.dart';
 import 'package:maple_byte/Route/route_names.dart';
+import 'package:maple_byte/Utils/app_colors.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -19,7 +19,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CurvedAppBar(title: "Projects", height: 110),
+      backgroundColor: AppColors.whiteColor,
       body: Column(
         children: [
           Center(
