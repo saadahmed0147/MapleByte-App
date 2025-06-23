@@ -6,8 +6,9 @@ import 'package:maple_byte/Screens/Auth/login_screen.dart';
 import 'package:maple_byte/Screens/Auth/otp_screen.dart';
 import 'package:maple_byte/Screens/Auth/reset_pass_screen.dart';
 import 'package:maple_byte/Screens/Auth/signup_screen.dart';
+import 'package:maple_byte/Screens/Home/Navigator/top_navigator.dart';
 import 'package:maple_byte/Screens/Home/finished_screen.dart';
-import 'package:maple_byte/Screens/Home/home_screen.dart';
+import 'package:maple_byte/Screens/Home/Navigator/bottom_navigator.dart';
 import 'package:maple_byte/Screens/Home/progress_screen.dart';
 import 'package:maple_byte/Screens/Home/todo_screen.dart';
 import 'package:maple_byte/Screens/Messages/chat_screen.dart';
@@ -39,8 +40,10 @@ class Routes {
         return MaterialPageRoute(builder: (context) => SignupScreen());
 
       //home
-      case RouteNames.homeScreen:
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
+      case RouteNames.topNavigator:
+        return MaterialPageRoute(builder: (context) => const TopNavigator());
+      case RouteNames.bottomNavigator:
+        return MaterialPageRoute(builder: (context) => const BottomNavigator());
       case RouteNames.finishScreen:
         return MaterialPageRoute(builder: (context) => const FinishedScreen());
       case RouteNames.progressScreen:

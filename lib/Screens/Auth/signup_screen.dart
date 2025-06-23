@@ -63,7 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
         });
 
         Utils.flushBarErrorMessage('Sign Up Successful', context);
-        Navigator.pushNamed(context, RouteNames.homeScreen);
+        Navigator.pushNamed(context, RouteNames.bottomNavigator);
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage = "Something went wrong";

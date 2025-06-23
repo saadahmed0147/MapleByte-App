@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
           });
           Utils.flushBarErrorMessage('Login Successfully', context);
           Utils.flushBarErrorMessage(value.user!.email.toString(), context);
-          Navigator.pushReplacementNamed(context, RouteNames.homeScreen);
+          Navigator.pushReplacementNamed(context, RouteNames.bottomNavigator);
         })
         .onError((error, stackTrace) {
           setState(() {

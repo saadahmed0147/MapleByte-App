@@ -8,7 +8,8 @@ class RouteNames {
   static const String signupScreen = 'signup_screen';
 
   // home
-  static const String homeScreen = 'home_screen';
+  static const String topNavigator = 'top_navigator';
+  static const String bottomNavigator = 'bottom_navigator';
   static const String finishScreen = 'finish_screen';
   static const String progressScreen = 'progress_screen';
   static const String todoScreen = 'todo_screen';
