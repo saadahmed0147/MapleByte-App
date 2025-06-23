@@ -3,7 +3,7 @@ import 'package:maple_byte/Component/Appbar/curved_appbar.dart';
 import 'package:maple_byte/Component/round_textfield.dart';
 import 'package:maple_byte/Model/service_model.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
-import 'package:maple_byte/data/services_data.dart';
+import 'package:maple_byte/Data/services_data.dart';
 
 class ServicesScreen extends StatefulWidget {
   const ServicesScreen({super.key});

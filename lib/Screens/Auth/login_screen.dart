@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maple_byte/Component/round_button.dart';
 import 'package:maple_byte/Component/round_textfield.dart';
 import 'package:maple_byte/Route/route_names.dart';
-import 'package:maple_byte/Utils/Utils.dart';
+import 'package:maple_byte/Utils/utils.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
 import 'package:maple_byte/main.dart';
 
