@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maple_byte/Component/curved_appbar.dart';
+import 'package:maple_byte/Component/Appbar/curved_appbar.dart';
 
 class FinishedScreen extends StatefulWidget {
   const FinishedScreen({super.key});

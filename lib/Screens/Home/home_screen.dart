@@ -1,5 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:maple_byte/Screens/Home/progress_screen.dart';
+import 'package:maple_byte/Screens/Messages/users_screen.dart';
+import 'package:maple_byte/Screens/news_screen.dart';
+import 'package:maple_byte/Screens/quotes_screen.dart';
+import 'package:maple_byte/Screens/services_screen.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,23 +24,38 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   final labels = <String>["Home", "Services", "Messages", "News", "Quotes"];
-
   int _currentIndex = 0;
 
-  // Dummy Screens for each tab
-  final List<Widget> screens = [
-    ProgressScreen(),
-    Center(child: Text('Services Screen', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Messages Screen', style: TextStyle(fontSize: 24))),
-    Center(child: Text('News Screen', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Quotes Screen', style: TextStyle(fontSize: 24))),
-  ];
+  late String currentUserId;
+  late List<Widget> screens;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // ✅ Get current user
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      currentUserId = user.uid;
+    } else {
+      // Optional: handle unauthenticated state
+      currentUserId = 'guest';
+    }
+
+    // ✅ Build screens list after getting user ID
+    screens = [
+      ProgressScreen(),
+      ServicesScreen(),
+      UsersScreen(currentUserId: currentUserId),
+      NewsScreen(),
+      QuotesScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(index: _currentIndex, children: screens),
-
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ClipRRect(
@@ -43,11 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: BottomAppBar(
             color: AppColors.darkBlueColor,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(5, (index) {
                 final isSelected = _currentIndex == index;
-
                 return Expanded(
                   child: GestureDetector(
                     onTap: () {
@@ -56,13 +74,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.symmetric(vertical: 5),
                       decoration: isSelected
                           ? BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(color: Colors.white, width: 2),
                             )
-                          : null,
+                          : BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.darkBlueColor,
+                                width: 2,
+                              ),
+                            ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [

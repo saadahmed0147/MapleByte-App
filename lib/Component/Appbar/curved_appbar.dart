@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maple_byte/Component/bottom_wave_clipper.dart';
+import 'package:maple_byte/Component/Appbar/bottom_wave_clipper.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
 
 class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {

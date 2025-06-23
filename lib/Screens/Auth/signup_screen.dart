@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:maple_byte/Component/round_button.dart';
 import 'package:maple_byte/Component/round_textfield.dart';
@@ -52,15 +53,17 @@ class _SignupScreenState extends State<SignupScreen> {
 
       if (user != null) {
         await user.updateDisplayName(nameController.text.trim());
+        final fcmToken = await FirebaseMessaging.instance.getToken();
 
         await _dbRef.child("users/${user.uid}").set({
           'uid': user.uid,
           'email': emailController.text.trim(),
           'name': nameController.text.trim(),
+          'fcmToken': fcmToken,
         });
 
         Utils.flushBarErrorMessage('Sign Up Successful', context);
-        Navigator.pushNamed(context, RouteNames.progressScreen);
+        Navigator.pushNamed(context, RouteNames.homeScreen);
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage = "Something went wrong";

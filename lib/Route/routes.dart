@@ -50,10 +50,19 @@ class Routes {
 
       // messages
       case RouteNames.chatScreen:
-        return MaterialPageRoute(builder: (context) => const ChatScreen());
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (context) => ChatScreen(
+            currentUserId: args['currentUserId'],
+            otherUserId: args['otherUserId'],
+            otherUserName: args['otherUserName'],
+          ),
+        );
       case RouteNames.usersScreen:
-        return MaterialPageRoute(builder: (context) => const UsersScreen());
-
+        final args = settings.arguments as String; // Expecting user ID
+        return MaterialPageRoute(
+          builder: (context) => UsersScreen(currentUserId: args),
+        );
       //splash
       case RouteNames.splashScreen:
         return MaterialPageRoute(builder: (context) => const SplashScreen());

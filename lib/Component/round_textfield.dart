@@ -12,6 +12,11 @@ class RoundTextField extends StatefulWidget {
   final TextEditingController textEditingController;
   final String? validatorValue;
   final Function(String)? onChange;
+  final double? borderRadius;
+  final Color? bgColor;
+  final Color? errorBorderColor;
+  final Color? focusedBorderColor;
+  final Color? enabledBorderColor;
 
   const RoundTextField({
     super.key,
@@ -25,6 +30,11 @@ class RoundTextField extends StatefulWidget {
     this.focusNode,
     this.validatorValue,
     this.onChange,
+    this.borderRadius,
+    this.bgColor,
+    this.errorBorderColor,
+    this.focusedBorderColor,
+    this.enabledBorderColor,
   });
 
   @override
@@ -58,11 +68,14 @@ class _RoundTextFieldState extends State<RoundTextField> {
             decoration: InputDecoration(
               border: InputBorder.none,
               filled: true,
-              fillColor: AppColors.whiteColor,
+              fillColor: widget.bgColor ?? AppColors.whiteColor,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               hintText: widget.hint,
               hintStyle: const TextStyle(color: Color(0xff8eaa8e)),
-              // prefixIcon: Icon(widget.prefixIcon),
+              prefixIcon: widget.prefixIcon != null
+                  ? Icon(widget.prefixIcon)
+                  : null,
+
               suffixIcon: widget.isPasswordField == true
                   ? IconButton(
                       onPressed: () {
@@ -76,17 +89,29 @@ class _RoundTextFieldState extends State<RoundTextField> {
                     )
                   : null,
 
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.greyColor),
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: widget.errorBorderColor ?? AppColors.greyColor,
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius ?? 16.0),
+                ),
               ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.darkBlueColor),
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: widget.focusedBorderColor ?? AppColors.darkBlueColor,
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius ?? 16.0),
+                ),
               ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.greyColor),
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: widget.enabledBorderColor ?? AppColors.greyColor,
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius ?? 16.0),
+                ),
               ),
             ),
           );
