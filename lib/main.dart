@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:maple_byte/Route/route_names.dart';
 import 'package:maple_byte/Route/routes.dart';
@@ -9,7 +10,7 @@ late Size mq;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
+  FirebaseMessaging.instance.getToken();
   runApp(const MyApp());
 }
 
