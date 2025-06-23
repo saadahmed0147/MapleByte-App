@@ -7,11 +7,11 @@ class BottomWaveClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final path = Path();
 
-    path.lineTo(0, size.height - 30);
-    final firstControlPoint = Offset(size.width / 4, size.height);
+    path.lineTo(0, size.height);
+    final firstControlPoint = Offset(size.width / 4, size.height - 50);
     final firstEndPoint = Offset(size.width / 2, size.height - 30);
-    final secondControlPoint = Offset(size.width * 3 / 4, size.height - 60);
-    final secondEndPoint = Offset(size.width, size.height - 30);
+    final secondControlPoint = Offset(size.width * 3 / 4, size.height - 0);
+    final secondEndPoint = Offset(size.width, size.height - 40);
 
     path.quadraticBezierTo(
       firstControlPoint.dx,
@@ -33,5 +33,5 @@ class BottomWaveClipper extends CustomClipper<Path> {
   }
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
 }

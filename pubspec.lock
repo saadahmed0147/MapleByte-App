@@ -413,6 +413,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  ultimate_bottom_navbar:
+    dependency: "direct main"
+    description:
+      name: ultimate_bottom_navbar
+      sha256: "38e73c2832218477cc13679e08bcfd05acf788c3b3889c17a51923bc4f725604"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.7"
   vector_math:
     dependency: transitive
     description:
