@@ -15,7 +15,6 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> {
   final ProjectService _service = ProjectService();
-
   void _showAddProjectDialog() {
     final titleController = TextEditingController();
     final descController = TextEditingController();
@@ -25,26 +24,58 @@ class _TodoScreenState extends State<TodoScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Add New Project"),
+        backgroundColor: AppColors.darkBlueColor,
+        title: const Text(
+          "Add New Project",
+          style: TextStyle(color: Colors.white),
+        ),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: titleController,
-                decoration: const InputDecoration(labelText: 'Title'),
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                  labelStyle: TextStyle(color: Colors.white),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
               ),
               TextField(
                 controller: descController,
-                decoration: const InputDecoration(labelText: 'Description'),
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  labelStyle: TextStyle(color: Colors.white),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
               ),
               TextField(
                 controller: imageController,
-                decoration: const InputDecoration(labelText: 'Image URL'),
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  labelText: 'Image URL',
+                  labelStyle: TextStyle(color: Colors.white),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
               ),
               TextField(
                 controller: priceController,
-                decoration: const InputDecoration(labelText: 'Price'),
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  labelText: 'Price',
+                  labelStyle: TextStyle(color: Colors.white),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
                 keyboardType: TextInputType.number,
               ),
             ],
@@ -53,9 +84,10 @@ class _TodoScreenState extends State<TodoScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel"),
+            child: const Text("Cancel", style: TextStyle(color: Colors.white)),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
             onPressed: () {
               final project = Project(
                 id: '',
@@ -69,7 +101,10 @@ class _TodoScreenState extends State<TodoScreen> {
               _service.addProject(project);
               Navigator.pop(context);
             },
-            child: const Text("Add"),
+            child: Text(
+              "Add",
+              style: TextStyle(color: AppColors.darkBlueColor),
+            ),
           ),
         ],
       ),
