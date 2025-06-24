@@ -4,7 +4,6 @@ import 'package:maple_byte/Component/round_textfield.dart';
 import 'package:maple_byte/Services/news_services.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
 import 'package:maple_byte/main.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -35,15 +34,6 @@ class _NewsScreenState extends State<NewsScreen> {
         query: _query,
       );
     });
-  }
-
-  void _launchUrl(String url) async {
-    final uri = Uri.parse(url);
-    if (!await launchUrl(uri, mode: LaunchMode.inAppBrowserView)) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Could not open the link')));
-    }
   }
 
   Widget _buildCategoryChips() {

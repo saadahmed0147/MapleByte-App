@@ -26,7 +26,7 @@ class _TopNavigatorState extends State<TopNavigator> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      appBar: CurvedAppBar(title: "Projects", height: 110),
+      appBar: CurvedAppBar(title: "Projects", height: 110, exitIcon: true),
       body: Column(
         children: [
           // Top pill-style tabs with divider
