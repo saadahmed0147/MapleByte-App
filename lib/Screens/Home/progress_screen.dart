@@ -1,37 +1,184 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:maple_byte/Route/route_names.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:maple_byte/Model/project_model.dart';
+import 'package:maple_byte/Services/project_services.dart';
 import 'package:maple_byte/Utils/app_colors.dart';
+import 'package:maple_byte/main.dart';
 
-class ProgressScreen extends StatefulWidget {
-  const ProgressScreen({super.key});
+class ProgressScreen extends StatelessWidget {
+  final ProjectService _service = ProjectService();
 
-  @override
-  State<ProgressScreen> createState() => _ProgressScreenState();
-}
+  ProgressScreen({super.key});
 
-class _ProgressScreenState extends State<ProgressScreen> {
-  void _logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushNamed(context, RouteNames.loginScreen);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      body: Column(
-        children: [
-          Center(
-            child: IconButton(
-              onPressed: () {
-                _logout(context);
-              },
-              icon: Icon(Icons.exit_to_app),
+  void _moveToFinished(BuildContext context, String id) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.darkBlueColor,
+        title: const Text(
+          'Move to Finished?',
+          style: TextStyle(color: Colors.white),
+        ),
+        content: const Text(
+          'Are you sure you want to mark this project as finished?',
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('No', style: TextStyle(color: Colors.white)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(
+              'Yes',
+              style: TextStyle(color: AppColors.darkBlueColor),
             ),
           ),
         ],
       ),
+    );
+
+    if (confirm == true) {
+      _service.updateStatus(id, 'finished');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Project marked as Finished')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<DatabaseEvent>(
+      stream: _service.getProjectsByStatus('inprogress'),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData || snapshot.data!.snapshot.value == null) {
+          return const Center(child: Text('No projects in Progress.'));
+        }
+
+        final data = Map<String, dynamic>.from(
+          snapshot.data!.snapshot.value as Map,
+        );
+        final projects = data.entries
+            .map(
+              (e) => Project.fromMap(e.key, Map<String, dynamic>.from(e.value)),
+            )
+            .toList();
+
+        return ListView.builder(
+          padding: const EdgeInsets.all(12),
+          itemCount: projects.length,
+          itemBuilder: (context, index) {
+            final p = projects[index];
+            return Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [AppColors.lightBlueColor, AppColors.darkBlueColor],
+                ),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Image
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: p.image.isNotEmpty
+                        ? SizedBox(
+                            width: mq.width * 0.3,
+                            height: mq.width * 0.2,
+                            child: Image.network(
+                              p.image,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(
+                                    Icons.image_not_supported,
+                                    size: 40,
+                                  ),
+                            ),
+                          )
+                        : SizedBox(
+                            width: mq.width * 0.3,
+                            height: mq.width * 0.2,
+                            child: const Icon(
+                              Icons.image_not_supported,
+                              size: 40,
+                            ),
+                          ),
+                  ),
+                  const SizedBox(width: 12),
+                  // Text
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          p.title,
+                          style: TextStyle(
+                            fontFamily: "Inter",
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          p.description,
+                          style: TextStyle(
+                            fontFamily: "Inter",
+                            color: AppColors.whiteColor,
+                            fontSize: 16,
+                          ),
+                        ),
+                        if (p.price.isNotEmpty) ...[
+                          const SizedBox(height: 6),
+                          Row(
+                            children: [
+                              Text(
+                                'Price: ',
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  color: AppColors.whiteColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
+                                p.price,
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  color: AppColors.whiteColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  // Confirm Finish Button
+                  IconButton(
+                    icon: Icon(
+                      Icons.check_circle_outline,
+                      color: AppColors.whiteColor,
+                    ),
+                    tooltip: "Mark as Finished",
+                    onPressed: () => _moveToFinished(context, p.id),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

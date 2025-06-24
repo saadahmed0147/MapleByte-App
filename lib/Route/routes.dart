@@ -45,11 +45,11 @@ class Routes {
       case RouteNames.bottomNavigator:
         return MaterialPageRoute(builder: (context) => const BottomNavigator());
       case RouteNames.finishScreen:
-        return MaterialPageRoute(builder: (context) => const FinishedScreen());
+        return MaterialPageRoute(builder: (context) => FinishedScreen());
       case RouteNames.progressScreen:
-        return MaterialPageRoute(builder: (context) => const ProgressScreen());
+        return MaterialPageRoute(builder: (context) => ProgressScreen());
       case RouteNames.todoScreen:
-        return MaterialPageRoute(builder: (context) => const TodoScreen());
+        return MaterialPageRoute(builder: (context) => TodoScreen());
 
       // messages
       case RouteNames.chatScreen:
