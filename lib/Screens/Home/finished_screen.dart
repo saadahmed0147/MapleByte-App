@@ -75,7 +75,6 @@ class FinishedScreen extends StatelessWidget {
             final p = projects[index];
             return Container(
               margin: const EdgeInsets.only(bottom: 16),
-              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 gradient: LinearGradient(
@@ -87,84 +86,92 @@ class FinishedScreen extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                  // Image (Styled like TodoScreen)
+                  Container(
+                    width: mq.width * 0.3,
+                    height: 120,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                      ),
+                    ),
                     child: p.image.isNotEmpty
-                        ? SizedBox(
-                            width: mq.width * 0.3,
-                            height: mq.width * 0.2,
-                            child: Image.network(
-                              p.image,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(
+                        ? Image.network(
+                            p.image,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Center(
+                                  child: Icon(
                                     Icons.image_not_supported,
                                     size: 40,
                                   ),
-                            ),
+                                ),
                           )
-                        : SizedBox(
-                            width: mq.width * 0.3,
-                            height: mq.width * 0.2,
-                            child: const Icon(
-                              Icons.image_not_supported,
-                              size: 40,
-                            ),
+                        : const Center(
+                            child: Icon(Icons.image_not_supported, size: 40),
                           ),
                   ),
-                  const SizedBox(width: 12),
-                  // Text Content
+
+                  // Text Section
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          p.title,
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            p.title,
+                            style: TextStyle(
+                              fontFamily: "Inter",
+                              color: AppColors.whiteColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          p.description,
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            color: AppColors.whiteColor,
-                            fontSize: 16,
-                          ),
-                        ),
-                        if (p.price.isNotEmpty) ...[
                           const SizedBox(height: 6),
-                          Row(
-                            children: [
-                              Text(
-                                'Price: ',
-                                style: TextStyle(
-                                  fontFamily: "Inter",
-                                  color: AppColors.whiteColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(
-                                p.price,
-                                style: TextStyle(
-                                  fontFamily: "Inter",
-                                  color: AppColors.whiteColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            p.description,
+                            style: TextStyle(
+                              fontFamily: "Inter",
+                              color: AppColors.whiteColor,
+                              fontSize: 16,
+                            ),
                           ),
+                          if (p.price.isNotEmpty) ...[
+                            const SizedBox(height: 6),
+                            Row(
+                              children: [
+                                Text(
+                                  'Price: € ',
+                                  style: TextStyle(
+                                    fontFamily: "Inter",
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  p.price,
+                                  style: TextStyle(
+                                    fontFamily: "Inter",
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
+
                   // Delete Icon
                   currentUser?.email == "admin@gmail.com"
                       ? IconButton(
