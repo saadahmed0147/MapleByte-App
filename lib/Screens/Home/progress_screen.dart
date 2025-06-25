@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:maple_byte/Model/project_model.dart';
@@ -9,6 +10,7 @@ class ProgressScreen extends StatelessWidget {
   final ProjectService _service = ProjectService();
 
   ProgressScreen({super.key});
+  final currentUser = FirebaseAuth.instance.currentUser;
 
   void _moveToFinished(BuildContext context, String id) async {
     final confirm = await showDialog<bool>(
@@ -165,14 +167,16 @@ class ProgressScreen extends StatelessWidget {
                     ),
                   ),
                   // Confirm Finish Button
-                  IconButton(
-                    icon: Icon(
-                      Icons.check_circle_outline,
-                      color: AppColors.whiteColor,
-                    ),
-                    tooltip: "Mark as Finished",
-                    onPressed: () => _moveToFinished(context, p.id),
-                  ),
+                  currentUser?.email == "admin@gmail.com"
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.check_circle_outline,
+                            color: AppColors.whiteColor,
+                          ),
+                          tooltip: "Mark as Finished",
+                          onPressed: () => _moveToFinished(context, p.id),
+                        )
+                      : const SizedBox.shrink(),
                 ],
               ),
             );

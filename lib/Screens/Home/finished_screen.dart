@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:maple_byte/Model/project_model.dart';
@@ -9,6 +10,7 @@ class FinishedScreen extends StatelessWidget {
   final ProjectService _service = ProjectService();
 
   FinishedScreen({super.key});
+  final currentUser = FirebaseAuth.instance.currentUser;
 
   void _confirmDelete(BuildContext context, String id) async {
     final confirm = await showDialog<bool>(
@@ -164,11 +166,13 @@ class FinishedScreen extends StatelessWidget {
                     ),
                   ),
                   // Delete Icon
-                  IconButton(
-                    icon: Icon(Icons.delete, color: AppColors.whiteColor),
-                    tooltip: "Delete Project",
-                    onPressed: () => _confirmDelete(context, p.id),
-                  ),
+                  currentUser?.email == "admin@gmail.com"
+                      ? IconButton(
+                          icon: Icon(Icons.delete, color: AppColors.whiteColor),
+                          tooltip: "Delete Project",
+                          onPressed: () => _confirmDelete(context, p.id),
+                        )
+                      : const SizedBox.shrink(),
                 ],
               ),
             );

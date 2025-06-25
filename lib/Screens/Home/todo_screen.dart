@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:maple_byte/Model/project_model.dart';
@@ -14,6 +15,7 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
+  final currentUser = FirebaseAuth.instance.currentUser;
   final ProjectService _service = ProjectService();
   void _showAddProjectDialog() {
     final titleController = TextEditingController();
@@ -264,11 +266,16 @@ class _TodoScreenState extends State<TodoScreen> {
                       ),
                     ),
                     // Action Icon
-                    IconButton(
-                      icon: Icon(Icons.schedule, color: AppColors.whiteColor),
-                      tooltip: "Start Project",
-                      onPressed: () => _moveToProgress(context, p.id),
-                    ),
+                    currentUser?.email == "admin@gmail.com"
+                        ? IconButton(
+                            icon: Icon(
+                              Icons.schedule,
+                              color: AppColors.whiteColor,
+                            ),
+                            tooltip: "Start Project",
+                            onPressed: () => _moveToProgress(context, p.id),
+                          )
+                        : const SizedBox.shrink(),
                   ],
                 ),
               );
@@ -276,11 +283,14 @@ class _TodoScreenState extends State<TodoScreen> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.darkBlueColor,
-        onPressed: _showAddProjectDialog,
-        child: const Icon(Icons.add, color: white),
-      ),
+
+      floatingActionButton: currentUser?.email == "admin@gmail.com"
+          ? FloatingActionButton(
+              backgroundColor: AppColors.darkBlueColor,
+              onPressed: _showAddProjectDialog,
+              child: const Icon(Icons.add, color: white),
+            )
+          : null, //hide button,
     );
   }
 }
